@@ -10,6 +10,7 @@ public class HydrometcentrApplication {
     public static void main(String[] args) {
         SpringApplication.run(HydrometcentrApplication.class, args);
 
+        //https://localhost:8080/town/id
 
     }
 
