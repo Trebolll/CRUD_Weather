@@ -2,6 +2,7 @@ package ru.javabegin.backend.hydrometcentr.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,18 +15,15 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "pressure",schema = "weather", catalog = "hydrometcentr")
+@Table(name = "pressure", schema = "weather", catalog = "hydrometcentr")
 public class Pressure {
 
-
     private String title;
-
     private Long value;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
-
 
     @Override
     public boolean equals(Object o) {

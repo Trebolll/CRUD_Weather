@@ -18,13 +18,11 @@ import java.util.Objects;
 public class Temperature {
 
     private String title;
-
     private Long value;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
-
 
     @Override
     public boolean equals(Object o) {

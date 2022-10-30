@@ -17,14 +17,11 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Town {
-
 
     private String name;
 
     private Long population;
-
 
     private String country;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
