@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.javabegin.backend.hydrometcentr.entity.Moisture;
+import ru.javabegin.backend.hydrometcentr.entity.Moisture;
 import ru.javabegin.backend.hydrometcentr.services.MoistureServices;
 
 import java.util.NoSuchElementException;
@@ -13,7 +14,6 @@ import java.util.NoSuchElementException;
 @RequestMapping("/moisture")
 public class MoistureController {
     private final MoistureServices moistureServices;
-
     public MoistureController(MoistureServices services) {
         this.moistureServices = services;
     }
@@ -33,17 +33,16 @@ public class MoistureController {
     @PutMapping("/update")
     public ResponseEntity<Moisture> update(@RequestBody Moisture moisture) {
 
-        // проверка на обязательные параметры
+
         if (moisture.getId() == null || moisture.getId() == 0) {
             return new ResponseEntity("missed param: id", HttpStatus.NOT_ACCEPTABLE);
         }
 
-        // если передали пустое значение title
+
         if (moisture.getTitle() == null || moisture.getTitle().trim().length() == 0) {
             return new ResponseEntity("missed param: title", HttpStatus.NOT_ACCEPTABLE);
         }
 
-        // save работает как на добавление, так и на обновление
         moistureServices.update(moisture);
 
         return new ResponseEntity(HttpStatus.OK);
@@ -57,7 +56,23 @@ public class MoistureController {
             e.printStackTrace();
             return new ResponseEntity("id=" + id + " not found", HttpStatus.NOT_ACCEPTABLE);
         }
-        return new ResponseEntity(HttpStatus.OK); // просто отправляем статус 200 (операция прошла успешно)
+        return new ResponseEntity(HttpStatus.OK);
     }
+    @PostMapping("/add")
+    public ResponseEntity<Moisture> add(@RequestBody Moisture moisture) {
 
+        // проверка на обязательные параметры
+        if (moisture.getId() != null && moisture.getId() != 0) {
+            // id создается автоматически в БД (autoincrement), поэтому его передавать не нужно, иначе может быть конфликт уникальности значения
+            return new ResponseEntity("redundant param: id MUST be null", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        // если передали пустое значение title
+        if (moisture.getTitle() == null || moisture.getTitle().trim().length() == 0) {
+            return new ResponseEntity("missed param: title", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        return ResponseEntity.ok(moistureServices.add(moisture));
+
+    }
 }

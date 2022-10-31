@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.javabegin.backend.hydrometcentr.entity.Town;
 import ru.javabegin.backend.hydrometcentr.services.TownServices;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -62,5 +61,23 @@ public class TownController {
             return new ResponseEntity("id=" + id + " not found", HttpStatus.NOT_ACCEPTABLE);
         }
         return new ResponseEntity(HttpStatus.OK); // просто отправляем статус 200 (операция прошла успешно)
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Town> add(@RequestBody Town town) {
+
+        // проверка на обязательные параметры
+        if (town.getId() != null && town.getId() != 0) {
+            // id создается автоматически в БД (autoincrement), поэтому его передавать не нужно, иначе может быть конфликт уникальности значения
+            return new ResponseEntity("redundant param: id MUST be null", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        // если передали пустое значение title
+        if (town.getName() == null || town.getName().trim().length() == 0) {
+            return new ResponseEntity("missed param: name", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        return ResponseEntity.ok(townServices.add(town));
+
     }
 }

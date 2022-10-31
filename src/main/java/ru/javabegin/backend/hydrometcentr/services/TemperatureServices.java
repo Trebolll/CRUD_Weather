@@ -2,9 +2,7 @@ package ru.javabegin.backend.hydrometcentr.services;
 
 import org.springframework.stereotype.Service;
 import ru.javabegin.backend.hydrometcentr.entity.Temperature;
-import ru.javabegin.backend.hydrometcentr.entity.Town;
 import ru.javabegin.backend.hydrometcentr.repository.TemperatureRepository;
-import ru.javabegin.backend.hydrometcentr.repository.TownRepository;
 
 import javax.transaction.Transactional;
 

@@ -3,7 +3,6 @@ package ru.javabegin.backend.hydrometcentr.services;
 import org.springframework.stereotype.Service;
 import ru.javabegin.backend.hydrometcentr.entity.Fallout;
 import ru.javabegin.backend.hydrometcentr.repository.FalloutRepository;
-import ru.javabegin.backend.hydrometcentr.repository.MoistureRepository;
 
 import javax.transaction.Transactional;
 

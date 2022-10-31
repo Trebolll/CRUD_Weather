@@ -3,7 +3,6 @@ package ru.javabegin.backend.hydrometcentr.services;
 import org.springframework.stereotype.Service;
 import ru.javabegin.backend.hydrometcentr.entity.Pressure;
 import ru.javabegin.backend.hydrometcentr.repository.PressureRepository;
-import ru.javabegin.backend.hydrometcentr.repository.TemperatureRepository;
 
 import javax.transaction.Transactional;
 

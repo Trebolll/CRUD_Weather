@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.javabegin.backend.hydrometcentr.entity.Fallout;
+import ru.javabegin.backend.hydrometcentr.entity.Fallout;
 import ru.javabegin.backend.hydrometcentr.services.FalloutServices;
 
 import java.util.NoSuchElementException;
@@ -60,5 +61,24 @@ public class FalloutController {
         }
         return new ResponseEntity(HttpStatus.OK); // просто отправляем статус 200 (операция прошла успешно)
     }
+
+    @PostMapping("/add")
+    public ResponseEntity<Fallout> add(@RequestBody Fallout fallout) {
+
+        // проверка на обязательные параметры
+        if (fallout.getId() != null && fallout.getId() != 0) {
+            // id создается автоматически в БД (autoincrement), поэтому его передавать не нужно, иначе может быть конфликт уникальности значения
+            return new ResponseEntity("redundant param: id MUST be null", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        // если передали пустое значение title
+        if (fallout.getForm() == null || fallout.getForm().trim().length() == 0) {
+            return new ResponseEntity("missed param: form", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        return ResponseEntity.ok(falloutServices.add(fallout));
+
+    }
+    
     
 }

@@ -1,6 +1,7 @@
 package ru.javabegin.backend.hydrometcentr.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,10 @@ public class Fallout {
     @Column(name = "id", nullable = false)
     private Long id;
 
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "town_id", referencedColumnName = "id")
+    private Town townId;
 
     @Override
     public boolean equals(Object o) {
